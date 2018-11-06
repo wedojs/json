@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { JsonViewerComponent } from './json-viewer/json-viewer.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    JsonViewerComponent
   ],
   imports: [
     BrowserModule

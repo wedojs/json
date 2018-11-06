@@ -1,0 +1,16 @@
+:host ::ng-deep .hoverable:hover {
+    cursor: pointer;
+}
+:host ::ng-deep .box, .root-box{
+    border: 1px solid black;
+    padding: 5px;
+    background: #99ddff;
+    margin: 5px;
+}
+:host ::ng-deep .root-box{
+    background: #ffb3ff
+}
+:host ::ng-deep li, ul {
+    padding: 7px;
+    margin: 3px;
+}
