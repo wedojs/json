@@ -14,3 +14,9 @@
     padding: 7px;
     margin: 3px;
 }
+:host ::ng-deep .open::before {
+    content: '-'
+}
+:host ::ng-deep .closed::before {
+    content: '+'
+}

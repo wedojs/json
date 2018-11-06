@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 
 
@@ -7,7 +7,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
   templateUrl: './json-viewer.component.html',
   styleUrls: ['./json-viewer.component.css']
 })
-export class JsonViewerComponent implements OnInit, OnChanges {
+export class JsonViewerComponent implements OnChanges {
 
   constructor() { }
 
@@ -20,9 +20,6 @@ export class JsonViewerComponent implements OnInit, OnChanges {
    * it is in expanded state
    */
   state = {}
-
-  ngOnInit() {
-  }
 
   ngOnChanges(simpleChange) {
     if (simpleChange.json.currentValue) {
@@ -47,6 +44,7 @@ export class JsonViewerComponent implements OnInit, OnChanges {
     const parentNode = document.getElementById(parentNodeId)
     parentNode.removeChild(parentNode.lastChild)
     this.state[parentNodeId] = false
+    parentNode.setAttribute('class', 'closed')
   }
   addChildNode(ele, isKeyANode) {
     ele = String(ele)
@@ -60,6 +58,7 @@ export class JsonViewerComponent implements OnInit, OnChanges {
 
     if (isKeyANode) {
       innerTmpSpan.classList.add('box')
+      tmpSpan.setAttribute('class', 'closed')
     }
 
     tmpSpan.id = ele
@@ -78,6 +77,7 @@ export class JsonViewerComponent implements OnInit, OnChanges {
   addNode(parentNodeId) {
     const parentNode = document.getElementById(parentNodeId)
     const nodeToBeAdded = document.createElement('ul')
+    parentNode.classList.replace('closed', 'open')
 
     const currentChildNode = this.needleInAHayStack(this.parsedJson, parentNodeId)
 
