@@ -24,9 +24,9 @@ export class JsonViewerComponent implements OnChanges {
   ngOnChanges(simpleChange) {
     if (simpleChange.json.currentValue) {
       this.parsedJson = {
-        "L0-Root-node": this.reshape(simpleChange.json.currentValue, 1)
+        'L0-Root-node': this.reshape(simpleChange.json.currentValue, 1)
       }
-      if(Object.keys(this.parsedJson["L0-Root-node"]).length === 0) {
+      if (Object.keys(this.parsedJson['L0-Root-node']).length === 0) {
         this.parsedJson = undefined
         this.state = {}
       }
@@ -48,10 +48,10 @@ export class JsonViewerComponent implements OnChanges {
   }
   addChildNode(ele, isKeyANode) {
     ele = String(ele)
-    let tmpSpan = document.createElement('span')
-    let liNode = document.createElement('li')
+    const tmpSpan = document.createElement('span')
+    const liNode = document.createElement('li')
 
-    let innerTmpSpan = document.createElement('span')
+    const innerTmpSpan = document.createElement('span')
     innerTmpSpan.innerHTML = ele.slice(ele.indexOf('-') + 1)
 
     innerTmpSpan.classList.add('hoverable')
@@ -66,7 +66,7 @@ export class JsonViewerComponent implements OnChanges {
 
     tmpSpan.addEventListener('click', event => {
       event.stopPropagation()
-      let _parentNodeId = event.target['parentElement']['id']
+      const _parentNodeId = event.target['parentElement']['id']
       this.decideWhatToDo(_parentNodeId)
     })
 
@@ -95,16 +95,18 @@ export class JsonViewerComponent implements OnChanges {
 
     const currentChildNode = this.needleInAHayStack(this.parsedJson, parentNodeId)
 
-    if (currentChildNode === undefined)
+    if (currentChildNode === undefined) {
       return
+    }
 
     // keep note of expanded nodes
     this.state[parentNodeId] = true
     if (currentChildNode instanceof Object) {
-      let currentChildNodeKeys = Object.keys(currentChildNode)
+      const currentChildNodeKeys = Object.keys(currentChildNode)
       currentChildNodeKeys.forEach(ele => {
-        if(this.state[ele])
+        if (this.state[ele]) {
           this.state[ele] = false
+        }
 
         nodeToBeAdded.appendChild(this.addChildNode(ele, true))
       })
@@ -119,7 +121,7 @@ export class JsonViewerComponent implements OnChanges {
     const copiedHayStack = this.deepCopyJson(hayStack)
     const allKeys = Object.keys(copiedHayStack)
 
-    let stack = []
+    const stack = []
 
     let eureka = {
       status: false,
@@ -133,18 +135,21 @@ export class JsonViewerComponent implements OnChanges {
           data: copiedHayStack[needle]
         }
       } else {
-        if (copiedHayStack[e] instanceof Object)
+        if (copiedHayStack[e] instanceof Object) {
           stack.push(copiedHayStack[e])
+        }
       }
     })
 
-    if (eureka.status)
+    if (eureka.status) {
       return eureka.data
+    }
 
     let val
     stack.forEach(e => {
-      if (!val)
+      if (!val) {
         val = this.needleInAHayStack(e, needle)
+      }
     })
     return val
   }
@@ -157,9 +162,9 @@ export class JsonViewerComponent implements OnChanges {
    * Bitch :-)
    */
   reshape(oldJson, level) {
-    let copiedJson = this.deepCopyJson(oldJson)
-    let jsonToReturn = {}
-    let allKeys = Object.keys(copiedJson)
+    const copiedJson = this.deepCopyJson(oldJson)
+    const jsonToReturn = {}
+    const allKeys = Object.keys(copiedJson)
     for (let i = 0; i < allKeys.length; i += 1) {
       if (copiedJson[allKeys[i]] instanceof Object) {
         jsonToReturn[`${this.randomValues[this.randomValuesArrayIndex++]}-${allKeys[i]}`] = this.reshape(copiedJson[allKeys[i]], level + 1)
