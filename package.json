@@ -49,7 +49,7 @@
   },
   "husky": {
     "hooks": {
-      "prepush": "ng test && ng lint"
+      "pre-push": "ng lint"
     }
   }
 }
