@@ -81,7 +81,7 @@ export class JsonViewerComponent implements OnChanges {
      * just change css
      */
     const parentNode = document.getElementById(parentNodeId)
-    if(Object.keys(this.state).includes(parentNodeId)) {
+    if (Object.keys(this.state).includes(parentNodeId)) {
       this.state[parentNodeId] = true
       parentNode.classList.replace('closed', 'open')
       parentNode.lastElementChild.setAttribute('class', 'show-nodes')
