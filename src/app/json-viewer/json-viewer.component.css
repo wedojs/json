@@ -20,3 +20,9 @@
 :host ::ng-deep .closed::before {
     content: '+'
 }
+:host ::ng-deep .show-nodes {
+    display: block
+}
+:host ::ng-deep .hide-nodes {
+    display: none
+}

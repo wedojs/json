@@ -34,15 +34,15 @@ export class JsonViewerComponent implements OnChanges {
   }
   decideWhatToDo(parentNodeId) {
     if (this.state[parentNodeId]) {
-      this.removeChildNodes(parentNodeId)
+      this.hideChildNodes(parentNodeId)
     } else {
       this.addNode(parentNodeId)
     }
 
   }
-  removeChildNodes(parentNodeId) {
+  hideChildNodes(parentNodeId) {
     const parentNode = document.getElementById(parentNodeId)
-    parentNode.removeChild(parentNode.lastChild)
+    parentNode.lastElementChild.setAttribute('class', 'hide-nodes')
     this.state[parentNodeId] = false
     parentNode.setAttribute('class', 'closed')
   }
@@ -75,7 +75,21 @@ export class JsonViewerComponent implements OnChanges {
   }
 
   addNode(parentNodeId) {
+    /**
+     * We will check this parentNodeId in state object
+     * If it exists there then no need to manipulate DOM,
+     * just change css
+     */
     const parentNode = document.getElementById(parentNodeId)
+    if(Object.keys(this.state).includes(parentNodeId)) {
+      this.state[parentNodeId] = true
+      parentNode.classList.replace('closed', 'open')
+      parentNode.lastElementChild.setAttribute('class', 'show-nodes')
+      return
+    }
+    /**
+     * If you are here that means new nodes will be added
+     */
     const nodeToBeAdded = document.createElement('ul')
     parentNode.classList.replace('closed', 'open')
 
