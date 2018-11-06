@@ -8,8 +8,8 @@ import { Component, ViewChild } from '@angular/core';
 export class AppComponent {
   @ViewChild('unparsedData') unparsedData
   json: any
-  parseDisabled: boolean = false
-  clearDisabled: boolean = true
+  parseDisabled = false
+  clearDisabled = true
 
   parse() {
     this.json = JSON.parse(this.unparsedData.nativeElement.value)
